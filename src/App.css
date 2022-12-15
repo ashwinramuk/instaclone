@@ -38,6 +38,29 @@
 }
 
 header{
+  position: fixed;
   border-bottom: 1px solid green;
   display: flex;
+  justify-content: space-around;
+  width:100%;
+  z-index:1;
+  font-size: large;
+  box-shadow: 0px 10px 10px -10px rgb(175, 174, 174);
+  background-color: white;
+  top:0;
+}
+header div{
+  display:flex;
+  align-self: center;
+}
+header.div-left{
+  width:69%;
+  text-align: start;
+}
+header.div-right{
+  width:29%;
+  text-align: end;
+}
+header img{
+  width:60%;
 }

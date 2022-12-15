@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import './createPost_page.css'
 const INSTACLONE_API='https://instaclone-backened-api.onrender.com/api/posts'
 function CreatePost(){
     const [imgFile, setImgFile]= useState()
@@ -24,12 +25,16 @@ function CreatePost(){
     return (
         <div>
             <header>
-                <div>
-                    <img src='./assets/icon.png'alt='Instaclone logo'/>
+                <div className="div-left">
+                    <div>
+                    <img src='./assets/icon.png' alt='logo'/>
+                    </div>
+                    <div>
                     <h1>instaclone</h1>
+                    </div>
                 </div>
-                <div>
-                    <Link to='/postview'><img src='./assets/camera_icon.png' alt='camera_icon'/></Link>
+                <div className="div-right">
+                    <Link to='/postView'><img className="flex-right" src='./assets/camera_icon.png' alt='cameraIcon'/></Link>
                 </div>
             </header>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -37,8 +42,12 @@ function CreatePost(){
                 <input type='file' name='image' onChange={(e)=> {setImgFile(e.target.files[0])}} accept='image/*'/>
                 </div>
                 <div>
+                    <div>
                 <input type='text' placeholder="Author" name='name' value={name} onChange={(e)=>setName(e.target.value)}/>
+                </div>
+                <div>
                 <input type='text' placeholder="Location" name='location' value={location} onChange={(e)=>setLocation(e.target.value)}/>
+                </div>
                 </div>
                 <div>
                 <input type='text' placeholder="Description" name='description' value={description} onChange={(e)=>setDescription(e.target.value)}/>
