@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function CreatePost(){
@@ -6,16 +6,19 @@ function CreatePost(){
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
     const [description, setDescription] = useState('')
-    const handleSubmit = async (event) => {
+	const [response, setResponse] = useState()
+	const [flag, setFlag] = useState(false)
+    const handleSubmit = async(event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append('img',imgFile)
+        formData.append('image',imgFile)
         formData.append('name',name)
         formData.append('location',location)
         formData.append('description',description)
-        const result = await fetch.post('/api/posts', {method:'post',body:formData}).then((res)=>res.text()).then((text)=>console.log(text))
-
-    }
+		//useEffect(()=>{fetch("https://instaclone-backened-api.onrender.com/api/posts").then((res)=>res.json()).then((data)=>{setPosts(data);console.log(posts)}).catch((e)=>console.log(e))},[])
+        //useEffect(()=>{fetch('https://instaclone-backened-api.onrender.com/api/posts', {method:'post',body:formData}).then((res)=>res.json()).then((data)=>{setResponse(data);console.log(data)}).catch((e)=>console.log(e))},[]);	
+		await fetch('https://instaclone-backened-api.onrender.com/api/posts', {method:'post',body:formData}).then((res)=>res.json()).then((data)=>{setResponse(data);console.log(data);setFlag(true);setName('');setDescription('');setLocation('');setImgFile(null);}).catch((e)=>console.log(e))
+	}
     return (
         <div>
             <header>
@@ -29,7 +32,7 @@ function CreatePost(){
             </header>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div>
-                <input type='file' onChange={(e)=> {debugger;setImgFile(e.target.files[0])}} accept='image/*'/>
+                <input type='file' name='image' value={imgFile?.name} onChange={(e)=> {setImgFile(e.target.files[0])}} accept='image/*'/>
                 </div>
                 <div>
                 <input type='text' placeholder="Author" name='name' value={name} onChange={(e)=>setName(e.target.value)}/>
@@ -40,6 +43,8 @@ function CreatePost(){
                 </div>
                 <input type='submit' value="Post"/>
             </form>
+			{flag&&<div>File Uploaded Successfully and its url is {response.PostImage}</div>}
+			
         </div>
     )
 }

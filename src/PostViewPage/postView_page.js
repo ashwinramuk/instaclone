@@ -2,30 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function PostView(){
-    const [posts, setPosts] = useState([{"name":"Siva",
-    "location":"Bengaluru",
-    "likes":64,
-    "description": "Kick start your career with a bang",
-    "PostImage": "/assets/10x.png",
-    "date": "12/02/2022"
-    },
-    {"name":"Neeraj",
-    "location":"Pune",
-    "likes":30,
-    "description": "Beatiful sun set",
-    "PostImage": "/assets/bridge-sun.jpg",
-    "date": "15/05/2022"
-    }])
-    useEffect(()=>{fetch("/api/posts",{method:'get'}).then((res)=>res.json()).then((data)=>setPosts(data))},[])
+    const [posts, setPosts] = useState([])
+    useEffect(()=>{fetch("https://instaclone-backened-api.onrender.com/api/posts").then((res)=>res.json()).then((data)=>{setPosts(data);console.log(posts)}).catch((e)=>console.log(e))},[])
     return(
         <div>
             <header>
                 <div>
-                    <img src='./assets/icon.png'/>
+                    <img src='./assets/icon.png' alt='logo'/>
                     <h1>instaclone</h1>
                 </div>
                 <div>
-                    <Link to='/createPost'><img src='./assets/camera_icon.png'/></Link>
+                    <Link to='/createPost'><img src='./assets/camera_icon.png' alt='cameraIcon'/></Link>
                 </div>
             </header>
             <div className="cards-container">
@@ -35,15 +22,15 @@ function PostView(){
                             <div>
                                 <p><b>{e.name}</b></p>
                                 <p>{e.location}</p>
-                                <img src='./assets/more_icon.png'/>
+                                <img src='./assets/more_icon.png' alt='moreIcon'/>
                             </div>
                             <div>
-                                <img src={e.PostImage}/>
+                                <img src={e.PostImage} alt='postImage'/>
                             </div>
                             <div>
                                 <div>
-                                    <img src='./assets/heart_icon.png'/>
-                                    <img src='./assets/share_icon.png'/>
+                                    <img src='./assets/heart_icon.png' alt='heartIcon'/>
+                                    <img src='./assets/share_icon.png' alt='shareIcon'/>
                                 </div>
                                 <div><p>{e.date}</p></div>
                             </div>
@@ -61,4 +48,4 @@ function PostView(){
     )
 }
 
-export default PostView
+export default PostView;
