@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+const INSTACLONE_API='https://instaclone-backened-api.onrender.com/api/posts'
 function CreatePost(){
     const [imgFile, setImgFile]= useState()
     const [name, setName] = useState('')
@@ -17,7 +17,7 @@ function CreatePost(){
         formData.append('description',description)
 		//useEffect(()=>{fetch("https://instaclone-backened-api.onrender.com/api/posts").then((res)=>res.json()).then((data)=>{setPosts(data);console.log(posts)}).catch((e)=>console.log(e))},[])
         //useEffect(()=>{fetch('https://instaclone-backened-api.onrender.com/api/posts', {method:'post',body:formData}).then((res)=>res.json()).then((data)=>{setResponse(data);console.log(data)}).catch((e)=>console.log(e))},[]);	
-		await fetch('https://instaclone-backened-api.onrender.com/api/posts', {method:'post',body:formData}).then((res)=>res.json()).then((data)=>{setResponse(data);console.log(data);setFlag(true);setName('');setDescription('');setLocation('');setImgFile(null);}).catch((e)=>console.log(e))
+		await fetch(INSTACLONE_API, {method:'post',body:formData}).then((res)=>res.json()).then((data)=>{setResponse(data);console.log(data);setFlag(true);setName('');setDescription('');setLocation('');setImgFile(null);}).catch((e)=>console.log(e))
 	}
     return (
         <div>
@@ -32,7 +32,7 @@ function CreatePost(){
             </header>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div>
-                <input type='file' name='image' value={imgFile?.name} onChange={(e)=> {setImgFile(e.target.files[0])}} accept='image/*'/>
+                <input type='file' name='image' onChange={(e)=> {setImgFile(e.target.files[0])}} accept='image/*'/>
                 </div>
                 <div>
                 <input type='text' placeholder="Author" name='name' value={name} onChange={(e)=>setName(e.target.value)}/>

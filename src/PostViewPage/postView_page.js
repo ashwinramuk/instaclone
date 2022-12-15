@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+const INSTACLONE_API='https://instaclone-backened-api.onrender.com/api/posts'
 function PostView(){
     const [posts, setPosts] = useState([])
-    useEffect(()=>{fetch("https://instaclone-backened-api.onrender.com/api/posts").then((res)=>res.json()).then((data)=>{setPosts(data);console.log(posts)}).catch((e)=>console.log(e))},[])
+    useEffect(()=>{fetch(INSTACLONE_API).then((res)=>res.json()).then((data)=>{setPosts(data);console.log(posts)}).catch((e)=>console.log(e))},[])
     return(
         <div>
             <header>
